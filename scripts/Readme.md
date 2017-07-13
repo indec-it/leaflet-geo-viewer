@@ -10,4 +10,4 @@ find tiles_bsas -iname '*.png' | while read i; do mogrify -format jpg "$i" && rm
 
 ## Paso de PostgreSQL a SpatiaLite con Ogr2ogr
 
-ogr2ogr -f SQLite -dsco SPATIALITE=yes -lco SPATIAL_INDEX=YES c:\AppGeo_CNA2018\cna2018.sqlite  PG:"host=172.26.67.244 user=usuario password=passtext dbname=openstreetmap" v_calles
+ogr2ogr -f SQLite -dsco SPATIALITE=yes -lco SPATIAL_INDEX=YES c:\AppGeo_CNA2018\cna2018.sqlite  PG:"host=localhost user=usuario password=passtext dbname=openstreetmap" v_calles
