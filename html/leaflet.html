@@ -1,171 +1,57 @@
 <!DOCTYPE html>
-        <html lang="es">
-          <head>
-            <meta charset="utf-8">
-            <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-            <title>CNA2018 - Bs As (EPSG:22185)</title>
+<html lang="es">        
+    <head>
+        <meta charset="utf-8">
+        <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+        <title>CNA2018 - Bs As (EPSG:22185)</title>
 
-            <!-- Leaflet -->
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-            <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
-            <script src="js/proj4leaflet.js"></script>
-            <script src="js/tilesSanPedro.js"></script>
-            <script src="js/proj22185.js"></script>
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+        <link rel="stylesheet" href="css/L.Control.MousePosition.css" />
 
-	    <!-- Mouse Position -->
-            <script src="js/L.Control.MousePosition.js"></script>
-            <link rel="stylesheet" href="css/L.Control.MousePosition.css" />
+        <style>
+            body { margin:0; padding:0; }
+            body, table, tr, td, th, div, h1, h2, input { font-family: "Calibri", "Trebuchet MS", "Ubuntu", Serif; font-size: 11pt; }
+            #map { position:absolute; top:0; bottom:0; width:100%; } /* full size */
+            .ctl {
+                padding: 2px 10px 2px 10px;
+                background: white;
+                background: rgba(255,255,255,0.9);
+                box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                border-radius: 5px;
+                text-align: right;
+            }
+            .title {
+                font-size: 18pt;
+                font-weight: bold;
+            }
+            .src {
+                font-size: 10pt;
+            }
 
-            <style>
-                body { margin:0; padding:0; }
-                body, table, tr, td, th, div, h1, h2, input { font-family: "Calibri", "Trebuchet MS", "Ubuntu", Serif; font-size: 11pt; }
-                #map { position:absolute; top:0; bottom:0; width:100%; } /* full size */
-                .ctl {
-                    padding: 2px 10px 2px 10px;
-                    background: white;
-                    background: rgba(255,255,255,0.9);
-                    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-                    border-radius: 5px;
-                    text-align: right;
-                }
-                .title {
-                    font-size: 18pt;
-                    font-weight: bold;
-                }
-                .src {
-                    font-size: 10pt;
-                }
-
-            </style>
-
-        </head>
-        <body>
+        </style>
+    </head>
+    <body>
+        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
+        <script src="js/proj4leaflet.js"></script>
+        <script src="js/tilesSanPedro.js"></script>
+        <script src="js/proj22185.js"></script>
+        <script src="js/L.Control.MousePosition.js"></script>
+        <script src="js/tileConfig.js"></script>
 
         <div id="map"></div>
 
         <script>
-        /* **** Leaflet **** */
+        	var wmsLayer = L.tileLayer.wms('http://geoservicios.indec.gov.ar/geoserver/ows?', {
+        	    layers: 'geocenso2010:visor_CNA2018',opacity:0.4
+        	});
 
-        // Base layers
-        //  .. OpenStreetMap
-//        var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
+            var map = ConfigSource.loadMap();
 
-        //  .. CartoDB Positron
-//        var cartodb = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'});
-
-        //  .. OSM Toner
-//        var toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'});
-
-        //  .. White background
-        var white = L.tileLayer("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAAA1BMVEX///+nxBvIAAAAH0lEQVQYGe3BAQ0AAADCIPunfg43YAAAAAAAAAAA5wIhAAAB9aK9BAAAAABJRU5ErkJggg==");
-
-        // Overlay layers (TMS)
-        var lyr = L.tileLayer('./{z}/{x}/{y}.jpg', {tms: true, opacity: 0.7, attribution: ""});
-        //    var lyr = L.tileLayer('http://localhost:8080/?z={z}&x={x}&y={y}', {tms: true, opacity: 0.7, attribution: ""});
-	//    var crs=L.Proj.CRS.EPSG3857;
-
-	var p1 = L.point(5183669.384,5451985.904),
-	p2 = L.point(5810709.853,6320419.895),
-	bounds = L.bounds(p1, p2);
-
-	// FROM MetaDAta image Landsat
-	/*
-	Upper Left  ( 5183669.384, 6320419.895) 
-	Lower Left  ( 5183669.384, 5451985.904) 
-	Upper Right ( 5810709.853, 6320419.895) 
-	Lower Right ( 5810709.853, 5451985.904) 
-	Center      ( 5497189.618, 5886202.899) 
-	*/
-
-        var crsBsAs = new  L.Proj.CRS('EPSG:22185',
-            '+proj=tmerc +lat_0=-90 +lon_0=-60 +k=1 +x_0=5500000 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',{
-
-            resolutions: [
-	3864.47012139567005,
-        1932.23506069783502,
-        966.11753034891751,
-        483.05876517445876,
-        241.52938258722938,
-        120.76469129361469,
-        60.38234564680734,
-        30.19117282340367,
-        15.09558641170184,
-	10,
-	5,
-	2.5,
-	1.25
-		],
-
-            origin: [5183669.38418678659946, 5451985.90394136123359],
-	    bounds: bounds
-            
-        });
-
-
-	var p1sp = L.point(5488421.75,6234375.25),
-	    p2sp = L.point(5554704.25,6286187.75),
-	    boundsSanPedro = L.bounds(p1sp, p2sp);
-
-        var crsSanPedro = new  L.Proj.CRS('EPSG:22185',
-            '+proj=tmerc +lat_0=-90 +lon_0=-60 +k=1 +x_0=5500000 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',{
-
-        resolutions: [
-	320,160,80,40,20,
-	10,
-	5,
-        2.5,1.25,0.625
-	], 
-          origin: [5488421.75000000000000, 6234375.25000000000000]
-,
-	  bounds: boundsSanPedro
-
-        });
-
-
-	var layerSanPedro = L.tileLayer('TMS_sanpedro/{z}/{x}/{y}.jpg',
-					{crs:crsSanPedro,
-					tms:true,
-					noWrap: true,
-					zoomOffset:0 //-3
-					,minNativeZoom:0,maxNativeZoom:7
-	});
-
-	
-	var layerBsAs = L.tileLayer('TMS_bsas/{z}/{x}/{y}.jpg',
-					{
-					tms:true,
-					noWrap: true,
-					minNativeZoom:0,maxNativeZoom:8
-	});
-
-
-	var wmsLayer = L.tileLayer.wms('http://geoservicios.indec.gov.ar/geoserver/ows?', {
-	    layers: 'geocenso2010:visor_CNA2018',opacity:0.4
-	});
-
-        var map = L.map('map', {
-            center: [ -33.77,-59.70],            
-            zoom: 0,
-            minZoom: 0,
-            maxZoom: 12,
-            crs: crsSanPedro,
-            layers: [layerSanPedro,wmsLayer]
-        });
-
-	var marker = L.marker([-33.77,-59.70]).addTo(map);
-            
-        var basemaps = {
-			//"OpenStreetMap": osm, "CartoDB Positron": cartodb, "Stamen Toner": toner, 
-		"San Pedro":layerSanPedro,	"Without background": white}
-        var overlaymaps = {"Layer": lyr,"Bs As":layerBsAs,"WMS San Pedro":wmsLayer }
-
-        // Add base layers
-        L.control.layers(basemaps, overlaymaps, {collapsed: false}).addTo(map);
-
-	// Add Coords.
-	L.control.mousePosition().addTo(map);
-	
+        	var marker = L.marker([-33.77,-59.70]).addTo(map);
+        	// Add Coords.
+        	L.control.mousePosition().addTo(map);	
         </script>
     </body>
 </html>
