@@ -47,6 +47,11 @@ ConfigSource.data = {
 			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3Aspot_san_pedro1@buenosaires@png8/{z}/{x}/{y}.png8',
 		min: 0,
 		max: 9
+	},{
+		desc: 'Mapa Base',
+			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3Abuenosaires@buenosaires@png8/{z}/{x}/{y}.png8',
+		min: 0,
+			max: 11
 	}],
 	wms: [{
 		url : 'http://geoservicios.indec.gov.ar/geoserver/ows?',
