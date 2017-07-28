@@ -6,7 +6,7 @@ ConfigSource.data = {
 		epsg: 'EPSG:22183',
 		projString: '+proj=tmerc +lat_0=-90 +lon_0=-66 +k=1 +x_0=3500000 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
 		resolutions: [
-	3840,1920,960,480,240,120,60,30,15,7.5,3.75,1.875
+	3840,1920,960,480,240,120,60,30,15,7.5,3.75,1.875,0.9375
 ],
 		origin:[2977550.5,5333329.5],
         bounds : {
@@ -102,7 +102,7 @@ ConfigSource.loadMap = function ( ){
 
     var mapDef = L.map('map', {
         center: [ -39.0764197, -67.3710415],            
-        zoom: 0,
+        zoom: 3,
         minZoom: 0,
         maxZoom: 12,
         crs: crs
