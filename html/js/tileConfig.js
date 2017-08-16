@@ -2,54 +2,67 @@ var	ConfigSource = {};
 
 ConfigSource.data = {
 	referenceSystems : {
-		id: 'san_pedro',
-		epsg: 'EPSG:22185',
-		projString: '+proj=tmerc +lat_0=-90 +lon_0=-60 +k=1 +x_0=5500000 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+		id: 'rionegro',
+		epsg: 'EPSG:22183',
+		projString: '+proj=tmerc +lat_0=-90 +lon_0=-66 +k=1 +x_0=3500000 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
 		resolutions: [
-			       3864.47012139567,
-				1932.235060697835,
-				966.1175303489175,
-				483.05876517445876,
-				241.52938258722938,
-				120.76469129361469,
-				60.382345646807345,
-				30.191172823403672,
-				15.095586411701836,
-				7.547793205850918,
-				3.773896602925459,
-				1.8869483014627295,
-				0.9434741507313648
+	3840,1920,960,480,240,120,60,30,15,7.5,3.75,1.875,0.9375
 ],
-	origin:[5183669.384186787,5451985.903941361],
+		origin:[2977550.5,5333329.5],
         bounds : {
         	bottom: {
-        		x: 5183669.384186787,
-        		y: 5451985.903941361 
+        		x: 2977550.5,
+        		y: 5333329.5 
         	},
         	top: {
-			x: 5810709.852556057,
-        		y: 6320419.894620156
+			x: 3783635.5,
+        		y: 5841484.5
         	}
         }
 	},
 	tms: [{
-		desc: 'Buenos Aires',
-		url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3ABuenosAires@buenosaires@png8/{z}/{x}/{y}.png8',
+		desc: 'Rio Negro',
+		url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3ARioNegro@rionegro@jpg/{z}/{x}/{y}.jpg',
 		min: 0,
-		max: 7
+		max: 8
 	},{
-		desc: 'San Pedro 2',
-			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3Aspot_san_pedro2@buenosaires@png8/{z}/{x}/{y}.png8',
-		min: 0,
-		max: 9
+		desc: 'Spot Rio Negro 1',
+			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3AspotRioNegro1@rionegro@png8/{z}/{x}/{y}.png8',
+		min: 5,
+		max: 11
 	},{
-		desc: 'San Pedro',
-			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3Aspot_san_pedro1@buenosaires@png8/{z}/{x}/{y}.png8',
-		min: 0,
-		max: 9
+		desc: 'Spot Rio Negro 2',
+			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3AspotRioNegro2@rionegro@png8/{z}/{x}/{y}.png8',
+		min: 5,
+		max: 11
+	},{
+		desc: 'Spot Rio Negro 3',
+			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3AspotRioNegro3@rionegro@png8/{z}/{x}/{y}.png8',
+		min: 5,
+		max: 11
+	},{
+		desc: 'Spot Rio Negro 4',
+			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3AspotRioNegro4@rionegro@png8/{z}/{x}/{y}.png8',
+		min: 5,
+		max: 11
+	},{
+		desc: 'Spot Rio Negro 5',
+			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3AspotRioNegro5@rionegro@png8/{z}/{x}/{y}.png8',
+		min: 5,
+		max: 11
+	},{
+		desc: 'Spot Rio Negro 6',
+			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3AspotRioNegro6@rionegro@png8/{z}/{x}/{y}.png8',
+		min: 5,
+		max: 11
+	},{
+		desc: 'Spot Rio Negro 7',
+			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3AspotRioNegro7@rionegro@png8/{z}/{x}/{y}.png8',
+		min: 5,
+		max: 11
 	},{
 		desc: 'Mapa Base',
-			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3Abuenosaires@buenosaires@png8/{z}/{x}/{y}.png8',
+			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3Arionegro@rionegro@png8/{z}/{x}/{y}.png8',
 		min: 0,
 			max: 11
 	}],
@@ -88,8 +101,8 @@ ConfigSource.loadMap = function ( ){
 	}
 
     var mapDef = L.map('map', {
-        center: [ -33.77,-59.70],            
-        zoom: 0,
+        center: [ -39.0764197, -67.3710415],            
+        zoom: 3,
         minZoom: 0,
         maxZoom: 12,
         crs: crs
