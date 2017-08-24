@@ -29,16 +29,20 @@ ConfigSource.data = {
 		min: 0,
 		max: 6
 	},{
-/*		desc: 'Spot Tucuman 1',
-			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3AspotRioNegro1@rionegro@png8/{z}/{x}/{y}.png8',
-		min: 5,
-		max: 11
-	},{
-*/
+                desc: 'Spot Tucuman 1',
+                url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3AspotTucuman1@tucuman@png8/{z}/{x}/{y}.png8',
+                min: 5,
+                max: 9
+        },{
+                desc: 'Spot Tucuman 2',
+                url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3AspotTucuman2@tucuman@png8/{z}/{x}/{y}.png8',
+                min: 5,
+                max: 9
+        },{
 		desc: 'Mapa Base',
-			url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3Atucuman@tucuman@png8/{z}/{x}/{y}.png8',
+		url : 'http://geoservicios.indec.gov.ar/geoserver/gwc/service/tms/1.0.0/geocenso2010%3Atucuman@tucuman@png8/{z}/{x}/{y}.png8',
 		min: 0,
-			max: 9
+		max: 9
 	}],
 	wms: [{
 		url : 'http://geoservicios.indec.gov.ar/geoserver/ows?',
